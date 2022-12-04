@@ -1,7 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { useDispatch } from "react-redux";
+import { showSuccessSnackbar } from "./Redux/Actions/snackbarAction";
+import CustomSnackbar from "./Components/Snackbar/CustomSnackbar";
 
 function App() {
+  const dispatch = useDispatch();
+  dispatch(showSuccessSnackbar("Welcome"));
+  
   return (
     <div className="App">
       <header className="App-header">
@@ -18,6 +24,7 @@ function App() {
           Learn React
         </a>
       </header>
+      <CustomSnackbar />
     </div>
   );
 }
