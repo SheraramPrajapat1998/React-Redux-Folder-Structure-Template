@@ -1,31 +1,25 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { useDispatch } from "react-redux";
 import { showSuccessSnackbar } from "./Redux/Actions/snackbarAction";
 import CustomSnackbar from "./Components/Snackbar/CustomSnackbar";
+import { BrowserRouter as Router } from 'react-router-dom';
+import Header from "./Components/Header/Header";
+import { AuthRoutes } from "./Routes/routes";
+import { Footer } from './Components/Footer/Footer';
 
 function App() {
   const dispatch = useDispatch();
   dispatch(showSuccessSnackbar("Welcome"));
-  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>
+      <Router>
+        <Header />
+        <Footer />
+        <AuthRoutes />
+      </Router>
       <CustomSnackbar />
-    </div>
+    </>
   );
 }
 
