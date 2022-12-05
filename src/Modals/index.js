@@ -5,3 +5,7 @@ export class SnakbarReducerModal {
   infoSnackbarOpen = false;
   message = "";
 }
+
+export class AuthReducerModal {
+  authToken = "";
+}
