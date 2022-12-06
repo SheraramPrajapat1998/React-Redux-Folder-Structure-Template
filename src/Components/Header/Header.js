@@ -12,13 +12,31 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import { stringAvatarFromEmail } from "../../Utils/utils";
+import { Link } from "@mui/material";
+import { Dashboard, Logout, Person2 } from "@mui/icons-material";
 
 const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+// const settings = ["Profile", "Account", "Dashboard", "Logout"];
+// const settings = [
+//   { name: "Profile", icon: <Person2 />, handleClick: () => {} },
+//   { name: "Dashboard", icon: <Dashboard />, handleClick: () => {} },
+//   { name: "Logout", icon: <Logout />, handleClick: () => {} },
+// ];
 
 const Header = ({ open }) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [user, setUser] = React.useState(
+    localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : ""
+  );
+
+  React.useEffect(() => {
+    let data = localStorage.getItem("user");
+    if (data) {
+      setUser(JSON.parse(data));
+    }
+  }, [localStorage.getItem("user")]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -34,6 +52,31 @@ const Header = ({ open }) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleLogout = () => {
+    setAnchorElUser(null);
+    localStorage.clear();
+    setUser("");
+    // navigate("/login");
+  };
+
+  const settings = [
+    {
+      name: "Profile",
+      icon: <Person2 />,
+      handleClick: () => {
+        console.log("profile handleClick called");
+      },
+    },
+    {
+      name: "Dashboard",
+      icon: <Dashboard />,
+      handleClick: () => {
+        console.log("dashboard handleClick called");
+      },
+    },
+    { name: "Logout", icon: <Logout />, handleClick: handleLogout },
+  ];
 
   return (
     <AppBar position="static" open={open}>
@@ -125,35 +168,46 @@ const Header = ({ open }) => {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+          {user ? (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar {...stringAvatarFromEmail(user?.email)} />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting?.name} onClick={setting.handleClick}>
+                    <Typography textAlign="center">
+                      {setting?.name ? setting.name : setting}
+                      <Button
+                        variant="text"
+                        color="secondary"
+                        onClick={settings.handleClick}
+                      >
+                        <Link /> {setting.icon}
+                      </Button>
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          ) : null}
         </Toolbar>
       </Container>
     </AppBar>
