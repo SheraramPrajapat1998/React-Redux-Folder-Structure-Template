@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/SheraramPrajapat1998/React-Redux-Folder-Structure-Template/static/css/main.073c9b0a.css",
+    "main.js": "/SheraramPrajapat1998/React-Redux-Folder-Structure-Template/static/js/main.d7f8c4a0.js",
+    "static/js/787.2be3bbcf.chunk.js": "/SheraramPrajapat1998/React-Redux-Folder-Structure-Template/static/js/787.2be3bbcf.chunk.js",
+    "index.html": "/SheraramPrajapat1998/React-Redux-Folder-Structure-Template/index.html",
+    "main.073c9b0a.css.map": "/SheraramPrajapat1998/React-Redux-Folder-Structure-Template/static/css/main.073c9b0a.css.map",
+    "main.d7f8c4a0.js.map": "/SheraramPrajapat1998/React-Redux-Folder-Structure-Template/static/js/main.d7f8c4a0.js.map",
+    "787.2be3bbcf.chunk.js.map": "/SheraramPrajapat1998/React-Redux-Folder-Structure-Template/static/js/787.2be3bbcf.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.d7f8c4a0.js"
+  ]
+}
